@@ -1,4 +1,23 @@
-.signup-cnt{
-    display: flex;
-    flex-direction: column;
+@media  screen and (max-width: 800px){
+    .signup-cnt{
+        display: flex;
+        flex-direction: column;
+    }
+    .signup-button{
+        border: none;
+        background-color: #2057c5;
+        border-radius: 5pt;
+        height: auto;
+        width: auto;
+        font-size: x-large;
+        text-align: center;
+        padding:1vh;
+        margin:1vh;
+        cursor: pointer;
+    }
+    .grid-cntr{
+        display: grid;
+        grid-template-columns: 50vw 50vw;
+        grid-template-rows: 25% 100px auto;
+    }
 }

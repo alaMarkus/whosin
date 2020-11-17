@@ -7,6 +7,7 @@
         width: auto;
         font-size: large;
         padding:1vh;
+        cursor: pointer;
     }
     .extras-menu-container{
         width: 20vw;
@@ -14,6 +15,7 @@
         float: right;
         margin-right:12vw;
         margin-top: 4vh;
+        cursor: pointer;
     }
     .extra-button-container{
 
@@ -28,6 +30,9 @@
     .extra-option:hover{
         background-color:  #282c34;
         border: solid 1px white;
+    }
+    .radio-cnt{
+        display: ruby;
     }
 
     .create-event-inner-container{
@@ -54,7 +59,7 @@
     }
     .input-field{
         font-size: x-large;
-        width: 50vmin;
+        width: 28vw;
         margin: 0 auto;
     }
     input[type=checkbox] {
@@ -91,28 +96,56 @@
     .form-container{
         display: flex;
         flex-direction: column;
-        margin: 12vh auto;
+        margin: 4vh auto;
         width: 100%;
+    }
+    .form-container input{
+        margin-bottom: 3vh;
+    }
+    .extra-button-container{
+        display: flex;
+        flex-direction: row-reverse;
     }
     .extra-button{
         border: none;
         background-color: #2057c5;
         border-radius: 5pt;
         height: auto;
-        width: auto;
+        width: 15vw;
         font-size: smaller;
         padding:1vh;
-        float: right;
-        margin-top: 1vh;
-        margin-right: 1vh;
+        margin-right: 2vh;
     }
     .extras-menu-container{
+        display: flex;
+        flex-direction:column;
         width: 100%;
         height: auto;
+        margin-top: 1vh;
+    }
+    .option-container{
+        margin: 4vh auto 0;
+    }
+    .extra-option{
+        background-color: #2057c5;
+        padding: 2vw;
+        margin:2vw;
+        width: 30vw;
+        border-radius: 2pt;
     }
     .input-field{
         font-size: x-large;
         width: 60vmin;
         margin: 0 auto;
+    }
+    .create-button-container{
+        margin-top: 6vh;
+    }
+    .radio-cnt{
+        display: ruby;
+    }
+    .extras{
+        display: flex;
+        flex-direction: column;
     }
 }

@@ -42,8 +42,11 @@ const Event = (props) =>{
                 console.log(result.data)
                 axios.post(apiUrl+"/getparticipants", {"eventId": eventid})
                     .then(function(result2){
-                        console.log(result2.data)
-                        setEventData(result.data[0])
+                        const eventObj = result.data[0]
+                        const onlyDate = eventObj.eventDate.split("T")
+                        const formattedDate = onlyDate[0].split("-").reverse().join("-")
+                        eventObj.eventDate = formattedDate
+                        setEventData(eventObj)
                         setParticipants(result2.data)
                     })
             })
@@ -69,25 +72,41 @@ const Event = (props) =>{
             })
     }
 
+    const showCalculatedPrice = () =>{
+        if (eventData.priceForGroup==1){
+            const showCalculatedPrice = eventData.price/participants.length
+            return (
+                <div>
+                    {showCalculatedPrice}
+                </div>
+            )
+        }else{
+            return (
+                <div>
+                    {eventData.price}
+                </div>
+            )
+        }
+    }
+
     return (
         <div>
-            <div>
+            <div className="grid-cntr">
                 <div>{eventData.eventName}</div>
                 <div>{eventData.eventDate}</div>
                 <div>{eventData.maxParticipants}</div>
-                <div>{eventData.price}€</div>
-                <div>{eventData.priceForGroup}</div>
+                <div>{showCalculatedPrice()}€</div>
             </div>
             <div className = "signup-cnt">
                 <label>name</label>
                 <input className="input-field" name="signupname" value = {signName} onInput={e=>setSignName(e.target.value)}/>
                 <div className="center">
-                    <MyButton text = "Count Me In!" onClick = {handleSubmit}/>
+                    <button className="signup-button" onClick = {handleSubmit}>Count Me In!</button>
                 </div>
             </div>
             <div className="participant-cnt">
                 <div>
-                    {participants.map(e=>{return(<div>{e.participantName}</div>)})}
+                    {participants.map(e=>{return(<div key={e.participantId}>{e.participantName}</div>)})}
                 </div>
             </div>
         </div>

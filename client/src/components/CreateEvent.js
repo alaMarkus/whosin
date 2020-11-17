@@ -20,6 +20,7 @@ const CreateEvent = () =>{
     const [event, setEvent] = useState({"maxParticipants": 0})
     const [maxParts, setMaxParts] = useState(0)
     const [showExtras, setShowExtras] = useState(0)
+    const [selectedExtras, setSelectedExtras] = useState({"price":0,"maxParticipants": 0})
     const history = useHistory()
 
     useEffect(()=>{
@@ -54,61 +55,48 @@ const CreateEvent = () =>{
         console.log(event)
     }
 
-    const maxParticipants = () =>{
-        if(maxParts==1){
+
+    const price = () => {
+        if (selectedExtras.price==1){
+            return (
+                <div className="extras">
+                    <label>Price</label>
+                    <input className="input-field" name ="price" onChange={handleChange} autoComplete="off"></input>
+                        <div className="radio-cnt">
+                            <div className="radio">
+                                <label>
+                                    <input name ="priceForGroup" type="radio" value="0" onChange={handleChange}/>
+                                    Per Person
+                                </label>
+                            </div>
+                                <div className="radio">
+                                <label>
+                                    <input name ="priceForGroup"  type="radio" value="1" onChange={handleChange}/>
+                                    For Group
+                                </label>
+                            </div>
+                        </div>
+                </div>
+            )
+        }else{
+            return (<div></div>)
+        }
+    }
+
+    const showMax = () =>{
+        if(selectedExtras.maxParticipants==1){
             return (
                 <div className="max-parts-input">
                     <label>How many can attend?</label>
-                    <input className="input-field" name = "maxParticipants" onChange={handleChange}></input>
-                </div>
-            )
-        }
-    }
-
-    const handleMax = () =>{
-        if (maxParts==0){
-            setMaxParts(1)
-            console.log(maxParts)
-        }else{
-            setMaxParts(0)
-            console.log(maxParts)
-        }
-    }
-
-
-    const extras = () => {
-        if (showExtras==1){
-            return (
-                <div className="extras" hidden>
-                    <div className="checkbox">
-                        <label>Max Participants?</label>
-                        <input className="checkbox" name="max" type = "checkbox" onChange={handleMax} value={maxParts}></input>
-                        <div>{maxParticipants()}</div>
-                    </div>
-                    <label>Price</label>
-                    <input className="input-field" name ="price" onChange={handleChange}></input>
-                    <div className="radio">
-                        <label>
-                            <input name ="priceForGroup" type="radio" value="0" onChange={handleChange}/>
-                            Per Person
-                        </label>
-                    </div>
-                        <div className="radio">
-                        <label>
-                            <input name ="priceForGroup"  type="radio" value="1" onChange={handleChange}/>
-                            For Group
-                        </label>
-                    </div>
+                    <input className="input-field" name = "maxParticipants" onChange={handleChange} autoComplete="off"></input>
                 </div>
             )
         }else{
-            return (
-                <div>
-
-                </div>
-            )
+            return (<></>)
         }
     }
+
+    
 
     const handleButton = () => {
         if (showExtras==0){
@@ -118,12 +106,26 @@ const CreateEvent = () =>{
         }
     }
 
+    const handleExtras = (e) =>{
+        const extra = (e.target.id)
+        if (selectedExtras[extra]===0){
+            const obj1 = {[e.target.id]: 1};
+            console.log(obj1)
+            setSelectedExtras(Object.assign({},selectedExtras,obj1))
+        }else{
+            const obj1 = {[e.target.id]: 0};
+            console.log(obj1)
+            setSelectedExtras(Object.assign({},selectedExtras,obj1))
+        }
+        console.log(selectedExtras)
+    }
+
     const selectExtras = () =>{
         if (showExtras==1){
             return (
                 <div className="option-container">
-                    <div className="extra-option">Price</div>
-                    <div className="extra-option">Participant limit</div>
+                    <div className="extra-option" id="price" onClick={handleExtras}>Price</div>
+                    <div className="extra-option" id="maxParticipants" onClick={handleExtras}>Participant limit</div>
                 </div>
             )
         }
@@ -132,22 +134,25 @@ const CreateEvent = () =>{
     return (
         <div className="create-event-container">
             <div className="extras-menu-container">
-                <button className="extra-button" onClick={handleButton}>More options</button>
+                <div className="extra-button-container">
+                    <button className="extra-button" onClick={handleButton}>More options</button>
+                </div>
                 {selectExtras()}
             </div>
             <div className="create-event-inner-container">
                 <form onSubmit={handleSubmit}>
                     <div className = "form-container">
                         <label>Event Name</label>
-                        <input className="input-field" name="eventName" onChange={handleChange} required></input>
+                        <input className="input-field" name="eventName" onChange={handleChange} autoComplete="off" required ></input>
 
                         <label>Date</label>
                         <input className="input-field" type="date" name="eventDate" onChange={handleChange}></input>
-
+                        <div>
+                            {price()}
+                            {showMax()}
+                        </div>
                         <div className="create-button-container">
                             <MyButton text = "Create!" type="submit"/>
-                        </div>
-                        <div>
                         </div>
                     </div>
                 </form>

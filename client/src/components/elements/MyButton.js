@@ -11,6 +11,7 @@ const Button = styled.button`
     text-align: center;
     padding:1vh;
     margin:1vh;
+    cursor: pointer;
 `
 
 const MyButton = (props) =>{
