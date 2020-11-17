@@ -1,0 +1,118 @@
+@media screen and (min-width: 800px) { 
+    .extra-button{
+        border: none;
+        background-color: #2057c5;
+        border-radius: 5pt;
+        height: auto;
+        width: auto;
+        font-size: large;
+        padding:1vh;
+    }
+    .extras-menu-container{
+        width: 20vw;
+        height: auto;
+        float: right;
+        margin-right:12vw;
+        margin-top: 4vh;
+    }
+    .extra-button-container{
+
+    }
+    .option-container{
+        margin-top: 3vh;
+        background-color: rgb(54, 61, 80);
+    }
+    .extra-option{
+        padding: 1vh;
+    }
+    .extra-option:hover{
+        background-color:  #282c34;
+        border: solid 1px white;
+    }
+
+    .create-event-inner-container{
+        width:30vw;
+        margin: 0 auto;
+    }
+    .form-container{
+        margin: 0 auto;
+    }
+
+    .create-event-container{
+    }
+    .create-button-container{
+        margin-top: 6vh;
+    }
+
+    .form-container{
+        display: flex;
+        flex-direction: column;
+        margin-top: 3vh;
+    }
+    .form-container input{
+        margin-bottom: 1vh;
+    }
+    .input-field{
+        font-size: x-large;
+        width: 50vmin;
+        margin: 0 auto;
+    }
+    input[type=checkbox] {
+        transform: scale(1.5);
+        width: 3vw;
+        border: none;
+    }
+    input[type=radio] {
+        transform: scale(1.5);
+    }
+    .center{
+        margin: 0 auto;
+    }
+
+    .max-parts-input{
+        display: flex;
+        flex-direction: column;
+        margin-top: 3vh;
+    }
+    .form-container label{
+        padding:1vh;
+    }
+    .extras{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 800px) { 
+    .create-event-container{
+        margin: 0 auto;
+        width: 100%;
+    }
+    .form-container{
+        display: flex;
+        flex-direction: column;
+        margin: 12vh auto;
+        width: 100%;
+    }
+    .extra-button{
+        border: none;
+        background-color: #2057c5;
+        border-radius: 5pt;
+        height: auto;
+        width: auto;
+        font-size: smaller;
+        padding:1vh;
+        float: right;
+        margin-top: 1vh;
+        margin-right: 1vh;
+    }
+    .extras-menu-container{
+        width: 100%;
+        height: auto;
+    }
+    .input-field{
+        font-size: x-large;
+        width: 60vmin;
+        margin: 0 auto;
+    }
+}

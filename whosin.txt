@@ -1,0 +1,11 @@
+Who is in?
+
+interface features:
+    create event
+    sign up for event
+    show number of participants
+    show (calculated) cost per person
+    
+technical features:
+    store userdata in cookie
+    event data in database
