@@ -44,7 +44,7 @@ const Event = (props) =>{
                     .then(function(result2){
                         const eventObj = result.data[0]
                         const onlyDate = eventObj.eventDate.split("T")
-                        const formattedDate = onlyDate[0].split("-").reverse().join("-")
+                        const formattedDate = onlyDate[0].split("-").reverse().join(".")
                         eventObj.eventDate = formattedDate
                         setEventData(eventObj)
                         setParticipants(result2.data)
@@ -77,25 +77,51 @@ const Event = (props) =>{
             const showCalculatedPrice = eventData.price/participants.length
             return (
                 <div>
-                    {showCalculatedPrice}
+                    <div>Price per person:</div>
+                    {showCalculatedPrice}€
                 </div>
             )
         }else{
             return (
                 <div>
-                    {eventData.price}
+                    <div>Price per person:</div>
+                    {eventData.price}€
                 </div>
             )
         }
     }
 
+    const spotsLeft = () =>{
+        if (eventData.maxParticipants > 0){
+            const left = eventData.maxParticipants-participants.length
+            return (
+                <div>
+                    {left} Spots left
+                </div>
+            )
+        }else{
+            return (
+                <div></div>
+            )
+        }
+    }
+
+    const participantNumber = () => {
+        return(
+            <div>
+                {participants.length} Signed up
+            </div>
+        )
+    }
+
     return (
         <div>
+            <div className = "event-header">{eventData.eventName}</div>
             <div className="grid-cntr">
-                <div>{eventData.eventName}</div>
                 <div>{eventData.eventDate}</div>
-                <div>{eventData.maxParticipants}</div>
-                <div>{showCalculatedPrice()}€</div>
+                <div>{spotsLeft()}</div>
+                <div className="second-row">{showCalculatedPrice()}</div>
+                <div className="second-row">{participantNumber()}</div>
             </div>
             <div className = "signup-cnt">
                 <label>name</label>

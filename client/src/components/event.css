@@ -20,4 +20,11 @@
         grid-template-columns: 50vw 50vw;
         grid-template-rows: 25% 100px auto;
     }
+    .event-header{
+        font-size: x-large;
+        margin: 1vw;
+    }
+    .second-row{
+        margin-top: 1vh;
+    }
 }

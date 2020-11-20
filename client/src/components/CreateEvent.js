@@ -17,7 +17,7 @@ function makeid() {
 
 
 const CreateEvent = () =>{
-    const [event, setEvent] = useState({"maxParticipants": 0})
+    const [event, setEvent] = useState({"maxParticipants": 0,"price":0,"maxParticipants": 0, "priceForGroup": 1})
     const [maxParts, setMaxParts] = useState(0)
     const [showExtras, setShowExtras] = useState(0)
     const [selectedExtras, setSelectedExtras] = useState({"price":0,"maxParticipants": 0})
