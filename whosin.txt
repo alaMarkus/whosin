@@ -9,3 +9,9 @@ interface features:
 technical features:
     store userdata in cookie
     event data in database
+
+
+Eventdata:
+    default price 0
+        --> if 0 don't show price
+    specify free

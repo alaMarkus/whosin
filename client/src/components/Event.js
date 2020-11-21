@@ -43,8 +43,9 @@ const Event = (props) =>{
                 axios.post(apiUrl+"/getparticipants", {"eventId": eventid})
                     .then(function(result2){
                         const eventObj = result.data[0]
-                        const onlyDate = eventObj.eventDate.split("T")
-                        const formattedDate = onlyDate[0].split("-").reverse().join(".")
+                        console.log(eventObj.eventDate)
+                        const date = eventObj.eventDate
+                        const formattedDate = date.split("-").reverse().join(".")
                         eventObj.eventDate = formattedDate
                         setEventData(eventObj)
                         setParticipants(result2.data)
@@ -73,6 +74,12 @@ const Event = (props) =>{
     }
 
     const showCalculatedPrice = () =>{
+        console.log(eventData.price)
+        if (eventData.price==0){
+            return (
+                <div></div>
+                )
+        }
         if (eventData.priceForGroup==1){
             const showCalculatedPrice = eventData.price/participants.length
             return (

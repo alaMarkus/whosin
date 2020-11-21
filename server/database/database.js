@@ -4,7 +4,8 @@ const connection = {
     user: "groot",
     password: "groot",
     host: "95.216.173.144",
-    database: "whosin"
+    database: "whosin",
+    dateStrings: true
 }
 
 const con = db.createConnection(connection)
