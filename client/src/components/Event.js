@@ -15,11 +15,14 @@ function pricePerPeson(total, people){
 
 const Event = (props) =>{
     const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+
     const [eventData, setEventData] = useState([])
     const [participants, setParticipants] = useState([])
     const [signName, setSignName] = useState('')
     const [userId, setUserId] = useState('')
     const [render, setRender] = useState('')
+
+    const [showDescription, setShowDescription] = useState("show")
 
 
     const { eventid } = useParams();
@@ -85,14 +88,14 @@ const Event = (props) =>{
             return (
                 <div>
                     <div>Price per person:</div>
-                    {showCalculatedPrice}€
+                    <div>{showCalculatedPrice}€</div>
                 </div>
             )
         }else{
             return (
                 <div>
                     <div>Price per person:</div>
-                    {eventData.price}€
+                    <div>{eventData.price}€</div>
                 </div>
             )
         }
@@ -121,15 +124,59 @@ const Event = (props) =>{
         )
     }
 
+    const description = () =>{
+        const lorem = `Lorem Ipsum is simply dummy text of the printing and 
+        typesetting industry. Lorem Ipsum has been the industry's 
+        standard dummy text ever since the 1500s, when an unknown 
+        printer took a galley of type and scrambled it to make a type 
+        specimen book. It has survived not only five centuries, but also 
+        the leap into electronic typesetting, remaining essentially unchanged. 
+        It was popularised in the 1960s with the release of Letraset sheets 
+        containing Lorem Ipsum passages, and more recently with desktop 
+        publishing software like Aldus PageMaker including versions of 
+        Lorem Ipsum.`
+        if (showDescription === "hide"){
+            return(
+                <div>
+                    <div>{eventData.description}</div>
+                    <div>{lorem}</div>
+                </div>
+            )
+        }
+        if (showDescription==="show"){
+            return(
+                <div>{lorem.substr(0,20)}...</div>
+            )
+        }
+    }
+
+    const dateAndTime = () =>{
+        return(
+            <div>
+                <div>{eventData.eventDate}</div>
+                <div></div>
+            </div>
+        )
+    }
+
+    const handleHide = () =>{
+        showDescription==="hide"?setShowDescription("show"):setShowDescription("hide")
+    }
+
     return (
         <div>
             <div className = "event-header">{eventData.eventName}</div>
-            <div className="grid-cntr">
-                <div>{eventData.eventDate}</div>
-                <div>{spotsLeft()}</div>
-                <div className="second-row">{showCalculatedPrice()}</div>
-                <div className="second-row">{participantNumber()}</div>
+            <div className="event-data-cntr">
+                <div className="event-data">{dateAndTime()}</div>
+                <div className="event-data">{spotsLeft()}</div>
+                <div className="event-data">{showCalculatedPrice()}</div>
+                <div className="event-data">{participantNumber()}</div>
             </div>
+            <div className="description-header-cntr">
+                <div className="description-header">description:</div>
+                <button className="description-button" onClick={handleHide}>{showDescription}</button>
+            </div>
+            <div className="description-cntr">{description()}</div>
             <div className = "signup-cnt">
                 <label>name</label>
                 <input className="input-field" name="signupname" value = {signName} onInput={e=>setSignName(e.target.value)}/>

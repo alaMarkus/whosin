@@ -2,6 +2,7 @@
     .signup-cnt{
         display: flex;
         flex-direction: column;
+        margin-top: 3vh;
     }
     .signup-button{
         border: none;
@@ -15,16 +16,42 @@
         margin:1vh;
         cursor: pointer;
     }
-    .grid-cntr{
-        display: grid;
-        grid-template-columns: 50vw 50vw;
-        grid-template-rows: 25% 100px auto;
-    }
     .event-header{
         font-size: x-large;
         margin: 1vw;
     }
-    .second-row{
+    .event-data-cntr{
+        display: flex;
+        justify-content: center;
+        margin-left: 3vw;
+        margin-right: 3vw;
+    }
+    .event-data{
+        margin:1vw; 
+    }
+    .description-header-cntr{
         margin-top: 1vh;
+        display: flex;
+        justify-content: space-between;
+    }
+    .description-header-cntr >*{
+        margin: 2vw 0;
+    }
+    .description-header{
+        margin-left: 10vw;
+    }
+    .description-button{
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: #65a2ff;
+        margin-right:10vw;
+    }
+    .description-cntr{
+        width: 80vw;
+        height: auto;
+        background-color: #242530;
+        margin: 0 auto;
+        font-style: italic;
     }
 }
