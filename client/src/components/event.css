@@ -3,6 +3,19 @@
         display: flex;
         flex-direction: column;
         margin-top: 3vh;
+        text-align: center;
+    }
+    .signup-field{
+        text-align: center;
+        font-size: x-large;
+        width: 60vmin;
+        margin: 0 auto;
+    }
+    .signedup-header{
+
+    }
+    .signedup-name{
+        color: #51e651;
     }
     .signup-button{
         border: none;
@@ -14,6 +27,18 @@
         text-align: center;
         padding:1vh;
         margin:1vh;
+        cursor: pointer;
+    }
+    .signup-extra-button{
+        border: none;
+        background-color: #2057c5;
+        border-radius: 5pt;
+        height: auto;
+        width: fit-content;
+        font-size: small;
+        text-align: center;
+        padding:1vh;
+        margin:1vh auto;
         cursor: pointer;
     }
     .event-header{
@@ -53,5 +78,8 @@
         background-color: #242530;
         margin: 0 auto;
         font-style: italic;
+    }
+    .participant-cnt{
+        margin-top: 2vh;
     }
 }

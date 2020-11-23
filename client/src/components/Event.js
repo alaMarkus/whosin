@@ -14,7 +14,7 @@ function pricePerPeson(total, people){
 }
 
 const Event = (props) =>{
-    const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+    const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
     const [eventData, setEventData] = useState([])
     const [participants, setParticipants] = useState([])
@@ -23,18 +23,24 @@ const Event = (props) =>{
     const [render, setRender] = useState('')
 
     const [showDescription, setShowDescription] = useState("show")
+    const [showSignUp, setShowSignUp] = useState("show")
 
 
     const { eventid } = useParams();
 
+    const userIdFunc = () =>{
+        const newId = uuid()
+        console.log(newId)
+        setCookie("userId", newId,{maxAge:"100000000",sameSite:"strict"})
+        setUserId(newId)
+    }
+
     useEffect(()=>{
         if(cookies.userId==null){
-            const newId = uuid()
-            console.log(newId)
-            setCookie("userId", newId,{maxAge:"100000000",sameSite:"strict"})
-            setUserId(newId)
+            setUserId()
         }else{
             setUserId(cookies.userId)
+            setShowSignUp("hide")
         }
         if(cookies.name!=null){
             setSignName(cookies.name)
@@ -67,6 +73,14 @@ const Event = (props) =>{
     const handleSubmit = () => {
         if(cookies.name==null){
             setCookie("name", signName,{maxAge:"100000000",sameSite:"strict"})
+        }else{
+            const conf = window.confirm("You've already signed up!\nDo you want to sign up again?")
+            if (conf==true){
+                userIdFunc()
+                setCookie("name", signName,{maxAge:"100000000",sameSite:"strict"})
+            }else{
+
+            }
         }
         axios
             .post(apiUrl+"/signupforevent", {"name": signName, "eventId":eventid,"participantId": userId})
@@ -84,7 +98,7 @@ const Event = (props) =>{
                 )
         }
         if (eventData.priceForGroup==1){
-            const showCalculatedPrice = eventData.price/participants.length
+            const showCalculatedPrice = Math.round(eventData.price/participants.length*100)/100
             return (
                 <div>
                     <div>Price per person:</div>
@@ -163,26 +177,48 @@ const Event = (props) =>{
         showDescription==="hide"?setShowDescription("show"):setShowDescription("hide")
     }
 
+    const handleExtra = () =>{
+        setShowSignUp("show")
+    }
+
+    const signUpper = () => {
+        if (showSignUp == "show"){
+            return (
+                <div className="signup-cnt">
+                    <label>name</label>
+                    <input className="signup-field" name="signupname" value = {signName} onInput={e=>setSignName(e.target.value)}/>
+                    <div className="center">
+                        <button className="signup-button" onClick = {handleSubmit}>Count Me In!</button>
+                    </div>
+                </div>
+            )
+        }else{
+            return(
+            <div className="signup-cnt">
+                <div className="signeup-header">You've already signed up</div>
+                <div className="signedup-name">{cookies.name}!</div>
+                <button className="signup-extra-button" onClick={handleExtra}>Sign up someone else</button>
+            </div>
+            )
+        }
+    }
+
     return (
         <div>
             <div className = "event-header">{eventData.eventName}</div>
             <div className="event-data-cntr">
                 <div className="event-data">{dateAndTime()}</div>
-                <div className="event-data">{spotsLeft()}</div>
                 <div className="event-data">{showCalculatedPrice()}</div>
                 <div className="event-data">{participantNumber()}</div>
+                <div className="event-data">{spotsLeft()}</div>
             </div>
             <div className="description-header-cntr">
                 <div className="description-header">description:</div>
                 <button className="description-button" onClick={handleHide}>{showDescription}</button>
             </div>
             <div className="description-cntr">{description()}</div>
-            <div className = "signup-cnt">
-                <label>name</label>
-                <input className="input-field" name="signupname" value = {signName} onInput={e=>setSignName(e.target.value)}/>
-                <div className="center">
-                    <button className="signup-button" onClick = {handleSubmit}>Count Me In!</button>
-                </div>
+            <div>
+                {signUpper()}
             </div>
             <div className="participant-cnt">
                 <div>
