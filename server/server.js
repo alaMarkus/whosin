@@ -4,6 +4,7 @@ const eventRouter = require("./controllers/eventRouter")
 const port = 8085;
 const dbconnection = require("./database/database");
 const cors = require("cors")
+const path = require('path')
 
 const corsOptions = {
     //origin: "http://localhost:3000",
@@ -12,7 +13,15 @@ const corsOptions = {
     credentials: true
 }
 
-app.use(cors(corsOptions))
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.get('*', function (req, res) {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+}else{
+    app.use(cors(corsOptions))
+}
+
 app.use(express.json())
 
 app.use("/",eventRouter)
