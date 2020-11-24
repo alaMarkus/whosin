@@ -7,8 +7,8 @@ const cors = require("cors")
 const path = require('path')
 
 const corsOptions = {
-    //origin: "http://localhost:3000",
-    origin:"*",
+    origin: "http://localhost:8085",
+    //origin:"*",
     optionsSuccesStatus:200,
     credentials: true
 }
@@ -18,9 +18,10 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
     app.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
     });
-}else{
-    app.use(cors(corsOptions))
 }
+
+app.use(cors(corsOptions))
+
 
 app.use(express.json())
 
