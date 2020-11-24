@@ -22,7 +22,6 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
 
 app.use(cors(corsOptions))
 
-
 app.use(express.json())
 
 app.use("/",eventRouter)
