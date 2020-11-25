@@ -37,7 +37,7 @@ const Event = (props) =>{
 
     useEffect(()=>{
         if(cookies.userId==null){
-            setUserId()
+            userIdFunc()
         }else{
             setUserId(cookies.userId)
             setShowSignUp("hide")
