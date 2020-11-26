@@ -18,9 +18,18 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
     app.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
     });
+    app.use(cors(corsOptions))
+}else{
+    const corsOptions2 = {
+        origin: "http://localhost:3000",
+        //origin:"*",
+        optionsSuccesStatus:200,
+        credentials: true
+    }
+    app.use(cors(corsOptions2))
+    console.log("cors localhost")
 }
 
-app.use(cors(corsOptions))
 
 app.use(express.json())
 

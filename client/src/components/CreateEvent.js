@@ -17,10 +17,10 @@ function makeid() {
 
 
 const CreateEvent = () =>{
-    const [event, setEvent] = useState({"maxParticipants": 0,"price":0,"maxParticipants": 0, "priceForGroup": 1})
+    const [event, setEvent] = useState({"maxParticipants": 0,"price":0,"maxParticipants": 0, "priceForGroup": 1,"description":""})
     const [maxParts, setMaxParts] = useState(0)
     const [showExtras, setShowExtras] = useState(0)
-    const [selectedExtras, setSelectedExtras] = useState({"price":0,"maxParticipants": 0})
+    const [selectedExtras, setSelectedExtras] = useState({"price":0,"maxParticipants": 0,"description":0})
     const history = useHistory()
 
     useEffect(()=>{
@@ -83,7 +83,7 @@ const CreateEvent = () =>{
         }
     }
 
-    const showMax = () =>{
+    const participantLimit = () =>{
         if(selectedExtras.maxParticipants==1){
             return (
                 <div className="max-parts-input">
@@ -96,7 +96,18 @@ const CreateEvent = () =>{
         }
     }
 
-    
+    const description = () =>{
+        if(selectedExtras.description==1){
+            return(
+                <div className="description-input-cntr">
+                    <label>Event Description:</label>
+                    <textarea className="text-area" name="description" onChange={handleChange} autoComplete="off"></textarea>
+                </div>
+            )
+        }else{
+            return(<></>)
+        }
+    }
 
     const handleButton = () => {
         if (showExtras==0){
@@ -126,6 +137,7 @@ const CreateEvent = () =>{
                 <div className="option-container">
                     <div className="extra-option" id="price" onClick={handleExtras}>Price</div>
                     <div className="extra-option" id="maxParticipants" onClick={handleExtras}>Participant limit</div>
+                    <div className="extra-option" id="description" onClick={handleExtras}>description</div>
                 </div>
             )
         }
@@ -149,7 +161,8 @@ const CreateEvent = () =>{
                         <input className="input-field" type="date" name="eventDate" onChange={handleChange}></input>
                         <div>
                             {price()}
-                            {showMax()}
+                            {participantLimit()}
+                            {description()}
                         </div>
                         <div className="create-button-container">
                             <MyButton text = "Create!" type="submit"/>

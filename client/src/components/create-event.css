@@ -63,6 +63,16 @@
         width: 28vw;
         margin: 0 auto;
     }
+    .description-input-cntr{
+        display: flex;
+        flex-direction: column;
+    }
+    .text-area{
+        font-size: x-large;
+        width: 28vw;
+        height: 30vh;
+        margin: 0 auto;
+    }
     input[type=checkbox] {
         transform: scale(1.5);
         width: 3vw;
@@ -135,6 +145,15 @@
         border-radius: 2pt;
     }
     .input-field{
+        font-size: x-large;
+        width: 60vmin;
+        margin: 0 auto;
+    }
+    .description-input-cntr{
+        display: flex;
+        flex-direction: column;
+    }
+    .text-area{
         font-size: x-large;
         width: 60vmin;
         margin: 0 auto;

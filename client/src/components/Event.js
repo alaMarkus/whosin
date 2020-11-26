@@ -28,24 +28,41 @@ const Event = (props) =>{
 
     const { eventid } = useParams();
 
-    const userIdFunc = () =>{
-        const newId = uuid()
-        console.log(newId)
-        setCookie("userId", newId,{maxAge:"100000000",sameSite:"strict"})
-        setUserId(newId)
+    const signUpRequest = (cookie) =>{
+        let idToUse = cookies.userId
+        if (cookies.userId==null||cookie==true){
+            const newId = uuid()
+            idToUse = newId
+            console.log(newId)
+            setUserId(newId)
+            if (cookie==true){
+                setCookie("userId", newId,{maxAge:"100000000",sameSite:"strict"})
+            }
+        }
+        axios
+            .post(apiUrl+"/signupforevent", {"name": signName, "eventId":eventid,"participantId": idToUse})
+            .then(function(result){
+                console.log(result)
+                setRender(signName)
+            })
+    }
+
+    const participantChecker = (partis) =>{
+        let includes = false
+        console.log("here")
+        console.log(partis)
+        console.log(cookies.userId)
+        for (let i =0;i<partis.length;i++){
+            if (partis[i].participantId==cookies.userId){
+                includes = true;
+                break;
+            }
+        }
+        console.log("includes =",includes)
+        return includes
     }
 
     useEffect(()=>{
-        if(cookies.userId==null){
-            userIdFunc()
-        }else{
-            setUserId(cookies.userId)
-            setShowSignUp("hide")
-        }
-        if(cookies.name!=null){
-            setSignName(cookies.name)
-        }
-
         axios.post(apiUrl+"/getevent", {"eventId": eventid})
             .then(function(result){
                 console.log(result.data)
@@ -57,41 +74,50 @@ const Event = (props) =>{
                         const formattedDate = date.split("-").reverse().join(".")
                         eventObj.eventDate = formattedDate
                         setEventData(eventObj)
+                        console.log(result2.data)
                         setParticipants(result2.data)
+
+                        if(cookies.userId!=null){
+                            setUserId(cookies.userId)
+                            if(participantChecker(result2.data)==true){
+                                setShowSignUp("hide")
+                            }
+                        }
+                        if(cookies.name!=null){
+                            setSignName(cookies.name)
+                        }
+                
                     })
             })
-    },[])
+    },[render])
 
+
+    /*
     useEffect(()=>{
+        console.log("rendering..")
         axios.post(apiUrl+"/getparticipants", {"eventId": eventid})
         .then(function(result2){
             console.log(result2.data)
             setParticipants(result2.data)
         })
-    },[render])
+    },[render])*/
 
     const handleSubmit = () => {
-        if(cookies.name==null){
+        if(participantChecker(participants)==false){
             setCookie("name", signName,{maxAge:"100000000",sameSite:"strict"})
+            signUpRequest(true)
         }else{
             const conf = window.confirm("You've already signed up!\nDo you want to sign up again?")
             if (conf==true){
-                userIdFunc()
-                setCookie("name", signName,{maxAge:"100000000",sameSite:"strict"})
+                signUpRequest(false)
             }else{
-
             }
         }
-        axios
-            .post(apiUrl+"/signupforevent", {"name": signName, "eventId":eventid,"participantId": userId})
-            .then(function(result){
-                console.log(result)
-                setRender(signName)
-            })
     }
 
     const showCalculatedPrice = () =>{
         console.log(eventData.price)
+
         if (eventData.price==0){
             return (
                 <div></div>
@@ -139,27 +165,32 @@ const Event = (props) =>{
     }
 
     const description = () =>{
-        const lorem = `Lorem Ipsum is simply dummy text of the printing and 
-        typesetting industry. Lorem Ipsum has been the industry's 
-        standard dummy text ever since the 1500s, when an unknown 
-        printer took a galley of type and scrambled it to make a type 
-        specimen book. It has survived not only five centuries, but also 
-        the leap into electronic typesetting, remaining essentially unchanged. 
-        It was popularised in the 1960s with the release of Letraset sheets 
-        containing Lorem Ipsum passages, and more recently with desktop 
-        publishing software like Aldus PageMaker including versions of 
-        Lorem Ipsum.`
-        if (showDescription === "hide"){
-            return(
-                <div>
-                    <div>{eventData.description}</div>
-                    <div>{lorem}</div>
-                </div>
-            )
-        }
-        if (showDescription==="show"){
-            return(
-                <div>{lorem.substr(0,20)}...</div>
+        if (eventData.description!=undefined){
+            if (showDescription === "hide"){
+                return(
+                    <div>
+                        <div className="description-header-cntr">
+                            <div className="description-header">description:</div>
+                            <button className="description-button" onClick={handleHide}>{showDescription}</button>
+                        </div>
+                        <div>{eventData.description}</div>
+                    </div>
+                )
+            }
+            if (showDescription==="show"){
+                return(
+                    <div>
+                        <div className="description-header-cntr">
+                            <div className="description-header">description:</div>
+                            <button className="description-button" onClick={handleHide}>{showDescription}</button>
+                        </div>
+                        <div>{eventData.description.substr(0,20)}...</div>
+                    </div>
+                )   
+            }
+        }else{
+            return (
+                <></>
             )
         }
     }
@@ -211,10 +242,6 @@ const Event = (props) =>{
                 <div className="event-data">{showCalculatedPrice()}</div>
                 <div className="event-data">{participantNumber()}</div>
                 <div className="event-data">{spotsLeft()}</div>
-            </div>
-            <div className="description-header-cntr">
-                <div className="description-header">description:</div>
-                <button className="description-button" onClick={handleHide}>{showDescription}</button>
             </div>
             <div className="description-cntr">{description()}</div>
             <div>
