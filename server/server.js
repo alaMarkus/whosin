@@ -7,7 +7,7 @@ const cors = require("cors")
 const path = require('path')
 
 const corsOptions = {
-    origin: "95.216.173.144:8085",
+    origin: "http://whosin.site:8085",
     //origin:"*",
     optionsSuccesStatus:200,
     credentials: true

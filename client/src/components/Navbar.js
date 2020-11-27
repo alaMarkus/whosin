@@ -18,7 +18,7 @@ const Navbar = () =>{
         if (showDropdown==1){
             return (
                 <div className="drop-down-menu-cntr">
-                    <Link to="/createevent">Create Event</Link>
+                    <Link to="/createevent" onClick={toggleDropdown}>Create Event</Link>
                 </div>
             )
         }else{

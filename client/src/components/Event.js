@@ -28,32 +28,38 @@ const Event = (props) =>{
 
     const { eventid } = useParams();
 
-    const signUpRequest = (cookie) =>{
-        let idToUse = cookies.userId
-        if (cookies.userId==null||cookie==true){
-            const newId = uuid()
-            idToUse = newId
-            console.log(newId)
-            setUserId(newId)
-            if (cookie==true){
-                setCookie("userId", newId,{maxAge:"100000000",sameSite:"strict"})
+    const signUpRequest = (submitNew) =>{
+        let idToUse = ""
+        if (cookies.userId==null){
+            console.log("userid null")
+            idToUse = uuid()
+            setUserId(idToUse)
+            setCookie("userId", idToUse,{maxAge:"100000000",sameSite:"strict"})
+            setCookie("name", signName,{maxAge:"100000000",sameSite:"strict"})
+        }else{
+            console.log("userid not null")
+            idToUse=cookies.userId
+            if(submitNew){
+                console.log("submit new")
+                idToUse = uuid()
             }
         }
         axios
             .post(apiUrl+"/signupforevent", {"name": signName, "eventId":eventid,"participantId": idToUse})
             .then(function(result){
                 console.log(result)
+                setShowSignUp("hide")
                 setRender(signName)
             })
     }
 
-    const participantChecker = (partis) =>{
+    function participantChecker(parti){
         let includes = false
-        console.log("here")
-        console.log(partis)
-        console.log(cookies.userId)
-        for (let i =0;i<partis.length;i++){
-            if (partis[i].participantId==cookies.userId){
+        const checkId = cookies.userId
+        console.log("checkId =",checkId)
+        for (let i =0;i<parti.length;i++){
+            console.log(i,parti[i].participantId)
+            if (parti[i].participantId==checkId){
                 includes = true;
                 break;
             }
@@ -77,39 +83,32 @@ const Event = (props) =>{
                         console.log(result2.data)
                         setParticipants(result2.data)
 
-                        if(cookies.userId!=null){
-                            setUserId(cookies.userId)
+                        const tempId = cookies.userId
+                        console.log("userId", tempId)
+
+                        if(tempId!=null){
+                            setUserId(tempId)
+                            setSignName(cookies.name)
                             if(participantChecker(result2.data)==true){
                                 setShowSignUp("hide")
                             }
                         }
-                        if(cookies.name!=null){
-                            setSignName(cookies.name)
-                        }
-                
                     })
             })
     },[render])
 
 
-    /*
-    useEffect(()=>{
-        console.log("rendering..")
-        axios.post(apiUrl+"/getparticipants", {"eventId": eventid})
-        .then(function(result2){
-            console.log(result2.data)
-            setParticipants(result2.data)
-        })
-    },[render])*/
+
 
     const handleSubmit = () => {
         if(participantChecker(participants)==false){
-            setCookie("name", signName,{maxAge:"100000000",sameSite:"strict"})
-            signUpRequest(true)
+            console.log("submit participantcheck false")
+            signUpRequest(false)
         }else{
+            console.log("submit participantcheck true")
             const conf = window.confirm("You've already signed up!\nDo you want to sign up again?")
             if (conf==true){
-                signUpRequest(false)
+                signUpRequest(true)
             }else{
             }
         }

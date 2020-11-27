@@ -15,3 +15,18 @@ Eventdata:
     default price 0
         --> if 0 don't show price
     specify free
+
+Cookies
+    on submit "count me in"
+        if cookie doesnt exist
+            create new uuid
+            store in cookie
+            use on submit
+
+        if exists
+            use on submit
+
+        if exist but want to submit other
+            creta new uuid
+            use on submit
+
