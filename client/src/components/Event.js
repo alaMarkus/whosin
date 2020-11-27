@@ -116,18 +116,17 @@ const Event = (props) =>{
 
     const showCalculatedPrice = () =>{
         console.log(eventData.price)
-
-        if (eventData.price==0){
-            return (
-                <div></div>
-                )
-        }
         if (eventData.priceForGroup==1){
-            const showCalculatedPrice = Math.round(eventData.price/participants.length*100)/100
+            let calculatedPrice=0
+            if (participants.length===0){
+                calculatedPrice = eventData.price
+            }else{
+                calculatedPrice = Math.round(eventData.price/participants.length*100)/100
+            }
             return (
                 <div>
                     <div>Price per person:</div>
-                    <div>{showCalculatedPrice}€</div>
+                    <div>{calculatedPrice}€</div>
                 </div>
             )
         }else{
