@@ -7,18 +7,29 @@ const connection = {
     database: "whosin",
     dateStrings: true
 }
+const pool = db.createPool({
+    user: "groot",
+    password: "groot",
+    host: "95.216.173.144",
+    database: "whosin",
+    dateStrings: true,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+})
 
 const con = db.createConnection(connection)
 
+/*
 con.connect(function(err){
     if(err) throw err;
     console.log("connected to database")
-})
+})*/
 
 exports.insertGet = (sql, args) =>  {
     return new Promise((resolve,reject)=>{
         if (args===undefined){
-            con.execute(sql, function(err, result){
+            pool.execute(sql, function(err, result){
                 if (err){
                     console.log("ERROR: ")
                     console.log(err.message)
@@ -35,7 +46,7 @@ exports.insertGet = (sql, args) =>  {
                 reject(new Error("empty value in args"))
             }
             else{
-                con.execute(sql, [...args], function(err,result){
+                pool.execute(sql, [...args], function(err,result){
                     if (err){
                         console.log("ERROR: ")
                         console.log(err.message)
