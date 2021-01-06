@@ -19,6 +19,7 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
         res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
     });
     app.use(cors(corsOptions))
+    console.log("cors: "+corsOptions.origin)
 }else{
     const corsOptions2 = {
         origin: "http://localhost:3000",
