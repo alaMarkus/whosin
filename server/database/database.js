@@ -20,13 +20,14 @@ const pool = db.createPool({
 
 const con = db.createConnection(connection)
 
-/*
-con.connect(function(err){
+
+/*con.connect(function(err){
     if(err) throw err;
     console.log("connected to database")
 })*/
 
 exports.insertGet = (sql, args) =>  {
+    //console.log("called insertGet")
     return new Promise((resolve,reject)=>{
         if (args===undefined){
             pool.execute(sql, function(err, result){

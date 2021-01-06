@@ -71,10 +71,17 @@ const Event = (props) =>{
     useEffect(()=>{
         axios.post(apiUrl+"/getevent", {"eventId": eventid})
             .then(function(result){
+                console.log("firstdata")
                 console.log(result.data)
+                if(result.data[0].length===0){
+                    let i = 0
+                    setRender(i++)
+                }
                 axios.post(apiUrl+"/getparticipants", {"eventId": eventid})
                     .then(function(result2){
                         const eventObj = result.data[0]
+                        console.log("eventobj")
+                        console.log(eventObj)
                         console.log(eventObj.eventDate)
                         const date = eventObj.eventDate
                         const formattedDate = date.split("-").reverse().join(".")
