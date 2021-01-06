@@ -28,6 +28,8 @@ const Event = (props) =>{
 
     const { eventid } = useParams();
 
+    console.log("apiUrl", apiUrl)
+
     const signUpRequest = (submitNew) =>{
         let idToUse = ""
         if (cookies.userId==null){

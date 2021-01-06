@@ -1,2 +1,6 @@
-//export const apiUrl = "http://localhost:8085"
-export const apiUrl = "http://whosin.site"
+if (process.env.NODE_ENV === 'production'){
+    exports.apiUrl = "http://whosin.site"
+}else{
+    exports.apiUrl = "http://localhost:8085"
+}
+
