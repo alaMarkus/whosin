@@ -31,7 +31,7 @@ const Navbar = () =>{
     return(
         <div className="navbar-container">
             <img className ="navbar-logo" src={logo}/>
-            <img className = "drop-down-button" src={menuicon} onClick={toggleDropdown}/>
+            <button className = "drop-down-button" onClick={toggleDropdown}>Menu</button>
             <div className = "drop-down-cntr">{dropDown()}</div>
         </div>
     )

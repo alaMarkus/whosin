@@ -14,13 +14,12 @@
     margin-top: -1vh;
 }
 .drop-down-cntr{
-    display: flex;
     flex-direction: row;
 }
 .drop-down-menu-cntr{
     position: relative;
     z-index: 9999;
-    width: 50vw;
+    width: 30vw;
     height: auto;
     padding-top: 3vh;
     padding-bottom: 3vh;
@@ -28,12 +27,14 @@
     border: 2px solid white;
     border-radius: 5pt;
     float:right;
+    text-decoration: none;
 }
 .drop-down-button{
     border-radius: 3pt;
     background-color: #394a58;
     width: 10vw;
-    height: 10vw;
+    height: 3vw;
     float:right;
     margin-right: 3vw;
+    font-size: larger;
 }
