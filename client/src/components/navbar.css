@@ -1,40 +1,95 @@
-.navbar-container{
-    width: 100vw;
-    height: 6vh;
-    background-color: #061e31;
-    padding-top: 4vh;
-    padding-bottom: 4vh;
-    text-align: center;
+@media  screen and (min-width: 800px){
+    .navbar-container{
+        width: 100vw;
+        height: 6vh;
+        background-color: #061e31;
+        padding-top: 4vh;
+        padding-bottom: 4vh;
+        text-align: center;
+    }
+    .navbar-logo{
+        height: 150%;
+        width: auto;
+        float: left;
+        margin-left: 6vw;
+        margin-top: -1vh;
+    }
+    .drop-down-cntr{
+        flex-direction: row;
+    }
+    .drop-down-menu-cntr{
+        position: relative;
+        z-index: 9999;
+        width: 30vw;
+        max-width: 200pt;
+        height: auto;
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+        background-color: aliceblue;
+        border: 2px solid white;
+        border-radius: 5pt;
+        float:right;
+        text-decoration: none;
+    }
+    .drop-down-button{
+        border-radius: 3pt;
+        background-color: #394a58;
+        width: 10vw;
+        height: 3vw;
+        float:right;
+        margin-right: 3vw;
+        font-size: larger;
+    }
+    .drop-down-create-event{
+        text-decoration: none;
+        color: black;
+    }
 }
-.navbar-logo{
-    height: 150%;
-    width: auto;
-    float: left;
-    margin-left: 6vw;
-    margin-top: -1vh;
-}
-.drop-down-cntr{
-    flex-direction: row;
-}
-.drop-down-menu-cntr{
-    position: relative;
-    z-index: 9999;
-    width: 30vw;
-    height: auto;
-    padding-top: 3vh;
-    padding-bottom: 3vh;
-    background-color: aliceblue;
-    border: 2px solid white;
-    border-radius: 5pt;
-    float:right;
-    text-decoration: none;
-}
-.drop-down-button{
-    border-radius: 3pt;
-    background-color: #394a58;
-    width: 10vw;
-    height: 3vw;
-    float:right;
-    margin-right: 3vw;
-    font-size: larger;
+@media  screen and (max-width: 800px){
+    .navbar-container{
+        width: 100vw;
+        height: 6vh;
+        background-color: #061e31;
+        padding-top: 4vh;
+        padding-bottom: 4vh;
+        text-align: center;
+    }
+    .navbar-logo{
+        height: 150%;
+        width: auto;
+        float: left;
+        margin-left: 6vw;
+        margin-top: -1vh;
+    }
+    .drop-down-cntr{
+        flex-direction: row;
+    }
+    .drop-down-menu-cntr{
+        position: relative;
+        margin: 1vh;
+        z-index: 9999;
+        width: 30vw;
+        max-width: 200pt;
+        height: auto;
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+        background-color: aliceblue;
+        border: 2px solid white;
+        border-radius: 5pt;
+        float:right;
+        text-decoration: none;
+    }
+    .drop-down-button{
+        border-radius: 3pt;
+        background-color: #394a58;
+        width: 20vw;
+        height: 11vw;
+        float:right;
+        margin-right: 3vw;
+        font-size: large;
+    }
+    .drop-down-create-event{
+        text-decoration: none;
+        color: black;
+    }
 }

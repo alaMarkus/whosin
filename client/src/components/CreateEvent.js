@@ -17,7 +17,7 @@ function makeid() {
 
 
 const CreateEvent = () =>{
-    const [event, setEvent] = useState({"maxParticipants": 0,"price":0,"maxParticipants": 0, "priceForGroup": 1,"description":""})
+    const [event, setEvent] = useState({"maxParticipants": 0,"price":0,"maxParticipants": 0, "priceForGroup": 1,"description":" "})
     const [maxParts, setMaxParts] = useState(0)
     const [showExtras, setShowExtras] = useState(0)
     const [selectedExtras, setSelectedExtras] = useState({"price":0,"maxParticipants": 0,"description":0})
@@ -26,7 +26,6 @@ const CreateEvent = () =>{
     useEffect(()=>{
         console.log(event.eventId)
         if(event.eventId!=undefined){
-            history.push("/event/"+event.eventId)
             sendRequest(event)
         }
     },[event.eventId])
@@ -43,6 +42,7 @@ const CreateEvent = () =>{
             .post(apiUrl+"/insertevent", {"event":eventObj})
             .then(function(result){
                 console.log(result)
+                history.push("/event/"+event.eventId)
             })
         console.log(event)
     }
