@@ -75,9 +75,8 @@ const Event = (props) =>{
             .then(function(result){
                 console.log("firstdata")
                 console.log(result.data)
-                if(result.data[0].length===0){
-                    let i = 0
-                    setRender(i++)
+                if(result.data==undefined){
+                    setRender("test")
                 }
                 axios.post(apiUrl+"/getparticipants", {"eventId": eventid})
                     .then(function(result2){

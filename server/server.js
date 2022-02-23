@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
 }else{
     const corsOptions2 = {
         origin: "http://localhost:3000",
-        //origin:"*",
+        origin:"*",
         optionsSuccesStatus:200,
         credentials: true
     }
