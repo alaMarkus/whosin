@@ -19,7 +19,7 @@ eventRouter.post("/getparticipants", function(req,res){
         })
 })
 
-eventRouter.post("/insertevent", function(req,res){
+eventRouter.post("/insertevent",function(req,res){
     const event = req.body.event
     console.log(event)
     query.insertEvent(event.eventId,event.eventName,event.eventDate,event.maxParticipants,event.price,event.priceForGroup, event.description)

@@ -52,6 +52,7 @@ const Event = (props) =>{
                 console.log(result)
                 setShowSignUp("hide")
                 setRender(signName)
+                setSignName(signName)
             })
     }
 
@@ -73,11 +74,12 @@ const Event = (props) =>{
     useEffect(()=>{
         axios.post(apiUrl+"/getevent", {"eventId": eventid})
             .then(function(result){
+                /*
                 console.log("firstdata")
                 console.log(result.data)
                 if(result.data==undefined){
                     setRender("test")
-                }
+                }*/
                 axios.post(apiUrl+"/getparticipants", {"eventId": eventid})
                     .then(function(result2){
                         const eventObj = result.data[0]
@@ -117,6 +119,7 @@ const Event = (props) =>{
             const conf = window.confirm("You've already signed up!\nDo you want to sign up again?")
             if (conf==true){
                 signUpRequest(true)
+                cookies.name = signName
             }else{
             }
         }
@@ -233,7 +236,7 @@ const Event = (props) =>{
             return(
             <div className="signup-cnt">
                 <div className="signeup-header">You've already signed up</div>
-                <div className="signedup-name">{cookies.name}!</div>
+                <div className="signedup-name">{signName}!</div>
                 <button className="signup-extra-button" onClick={handleExtra}>Sign up someone else</button>
             </div>
             )
